@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <com.onlyapps.sample.view.SynchronizedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="65dip"
+                    android:background="#A00" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="65dip"
+                    android:background="#AAA" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="225dip"
+                    android:background="#0A0" />
+
+                <View
+                    android:id="@+id/anchor"
+                    android:layout_width="fill_parent"
+                    android:layout_height="225dip"
+                    android:background="#00A" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="225dip"
+                    android:background="#A00" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="225dip"
+                    android:background="#0A0" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="fill_parent"
+                android:layout_height="65dip"
+                android:background="#A555"
+                android:gravity="center"
+                android:text="Sticker View" />
+        </FrameLayout>
+    </com.onlyapps.sample.view.SynchronizedScrollView>
+</FrameLayout>
