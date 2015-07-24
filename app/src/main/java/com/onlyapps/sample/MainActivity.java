@@ -18,7 +18,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Sample");
+        setTitle("Hyungsok's Sample");
         setContentView(R.layout.activity_main);
 
         mListView = (ListView) findViewById(R.id.list);
