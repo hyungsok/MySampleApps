@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bgWidget"
+    android:shape="rectangle">
+    <gradient
+        android:angle="45"
+        android:endColor="#FFFAFAFA"
+        android:startColor="#FFFFFFFF" />
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFFFF" />
+    <padding
+        android:bottom="1dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="1dp" />
+    <corners android:radius="7dp" />
+
+</shape>
