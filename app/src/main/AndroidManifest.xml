@@ -26,17 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.onlyapps.sample.StaggeredGridViewImageActivity" />
         <activity android:name="com.onlyapps.sample.GridLayoutManagerActivity" />
         <activity android:name="com.onlyapps.sample.StaggeredGridLayoutManagerActivity" />
         <activity android:name="com.onlyapps.sample.DetailActivity" />
         <activity android:name="com.onlyapps.sample.DetailRevealBackgroundViewActivity" />
         <activity android:name="com.onlyapps.sample.AnimationActivity" />
         <activity android:name="com.onlyapps.sample.AnimationDetailActivity" />
-        <activity android:name="com.onlyapps.sample.StaggeredGridViewTextActivity" />
         <activity android:name="com.onlyapps.sample.RevealBackgroundActivity" />
         <activity android:name="com.onlyapps.sample.AnimatedExpandableListViewActivity" />
-        <activity android:name="com.onlyapps.sample.ActionSlideExpandableListViewActivity" />
         <activity android:name="com.onlyapps.sample.AnimatedExpandableSimpleListView" />
         <activity android:name="com.onlyapps.sample.listviewremovalanimation.ListViewRemovalAnimation" />
         <activity android:name="com.onlyapps.sample.CustomViewTestActivity" />
