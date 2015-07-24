@@ -33,6 +33,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("07.CustomViewTest");
         adapter.add("08.DesignLibrarySample");
         adapter.add("09.ScrollViewSample");
+        adapter.add("10.ReaimListView");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setSelection(adapter.getCount() - 1);
@@ -74,6 +75,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 9:
                 startActivity(new Intent(this, ScrollViewSampleActivity.class));
+                break;
+            case 10:
+                startActivity(new Intent(this, ReaimListViewActivity.class));
                 break;
         }
     }

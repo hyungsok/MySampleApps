@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -40,7 +45,8 @@
         <activity
             android:name="com.onlyapps.sample.DesignLibrarySample"
             android:theme="@style/DesignTheme" />
-        <activity android:name="com.onlyapps.sample.ScrollViewSampleActivity"></activity>
+        <activity android:name="com.onlyapps.sample.ScrollViewSampleActivity" />
+        <activity android:name="com.onlyapps.sample.ReaimListViewActivity" />
     </application>
 
 </manifest>
