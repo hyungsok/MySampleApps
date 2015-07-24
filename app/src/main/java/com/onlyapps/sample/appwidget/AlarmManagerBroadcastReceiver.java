@@ -28,10 +28,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "YOUR TAG");
         //Acquire the lock
         wl.acquire();
-
         //You can do the processing here update the widget/remote views.
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.appwidget_timer_layout);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget_timer_layout);
         String time = getCurrentTime("hh:mm:ss a");
         remoteViews.setTextViewText(R.id.tvTime, time);
         //Toast.makeText(context, time, Toast.LENGTH_LONG).show();
