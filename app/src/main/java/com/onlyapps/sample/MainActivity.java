@@ -34,6 +34,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("08.DesignLibrarySample");
         adapter.add("09.ScrollViewSample");
         adapter.add("10.ReaimListView");
+        adapter.add("11.AlarmManagerTestActivity");
+        adapter.add("12.UnigueIdActivity");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setSelection(adapter.getCount() - 1);
@@ -78,6 +80,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 10:
                 startActivity(new Intent(this, ReaimListViewActivity.class));
+                break;
+            case 11:
+                startActivity(new Intent(this, AlarmManagerTestActivity.class));
+                break;
+            case 12:
+                startActivity(new Intent(this, UnigueIdActivity.class));
                 break;
         }
     }

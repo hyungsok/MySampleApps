@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.etsy.android.sample"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -14,16 +14,16 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.onlyapps.sample.MainActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,22 +48,28 @@
         <activity android:name="com.onlyapps.sample.ScrollViewSampleActivity" />
         <activity android:name="com.onlyapps.sample.ReaimListViewActivity" />
 
-
         <!-- Widget Broadcast receiver -->
         <receiver
             android:name="com.onlyapps.sample.appwidget.TimeWidgetProvider"
             android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_metadata" />
         </receiver>
         <!-- Broadcast receiver -->
-        <receiver android:name="com.onlyapps.sample.appwidget.AlarmManagerBroadcastReceiver"></receiver>
+        <receiver android:name="com.onlyapps.sample.appwidget.AlarmManagerBroadcastReceiver" />
 
+        <activity android:name="com.onlyapps.sample.AlarmManagerTestActivity" >
+        </activity>
+        <activity
+            android:name="com.onlyapps.sample.UnigueIdActivity"
+            android:label="@string/title_activity_unigue_id" >
+        </activity>
     </application>
 
 </manifest>
