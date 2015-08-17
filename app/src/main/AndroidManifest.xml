@@ -50,6 +50,18 @@
             android:theme="@style/DesignTheme" />
         <activity android:name=".ScrollViewSampleActivity" />
         <activity android:name=".ReaimListViewActivity" />
+        <activity android:name=".AlarmManagerTestActivity" />
+        <activity android:name=".UnigueIdActivity" />
+        <activity
+            android:name=".ZoomScrollViewSimpleActivity"
+            android:theme="@style/DesignTheme" />
+
+        <activity
+            android:name=".ZoomScrollViewCustomActivity"
+            android:theme="@style/DesignTheme"/>
+
+        <!-- Broadcast receiver -->
+        <receiver android:name=".appwidget.AlarmManagerBroadcastReceiver" />
 
         <!-- Widget Broadcast receiver -->
         <receiver
@@ -64,12 +76,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_metadata" />
         </receiver>
-
-        <activity android:name=".AlarmManagerTestActivity" />
-        <activity android:name=".UnigueIdActivity" />
-
-        <!-- Broadcast receiver -->
-        <receiver android:name=".appwidget.AlarmManagerBroadcastReceiver" />
 
     </application>
 

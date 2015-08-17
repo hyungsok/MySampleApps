@@ -116,4 +116,6 @@
     <string name="title_activity_reaim_list_view">ReaimListViewActivity</string>
     <string name="title_activity_app_link">AppLinkActivity</string>
     <string name="title_activity_unigue_id">UnigueIdActivity</string>
+    <string name="title_activity_zoomable_scroll_view">ZoomableScrollViewActivity</string>
+    <string name="title_activity_zoom_scroll_view_custom">ZoomScrollViewCustomActivity</string>
 </resources>

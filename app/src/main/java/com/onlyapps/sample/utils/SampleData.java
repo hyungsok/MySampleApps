@@ -1,5 +1,11 @@
 package com.onlyapps.sample.utils;
 
+import android.content.Context;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class SampleData {
@@ -19,6 +25,13 @@ public class SampleData {
     public static String getData(int position) {
         String[] datas = getData();
         return datas[position];
+    }
+
+    public static ImageView getImageView(Context context, int position) {
+        ImageView view = new ImageView(context);
+        view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        Glide.with(context).load(SampleData.getData(position)).into(view);
+        return view;
     }
 
     public static String[] getData() {
@@ -156,4 +169,8 @@ public class SampleData {
         };
         return datas;
     }
+
+    ;
+
+
 }

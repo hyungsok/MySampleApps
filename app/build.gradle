@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-//    compileSdkVersion 22
-//    buildToolsVersion "22.0.1"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
-    compileSdkVersion 'android-MNC'
-    buildToolsVersion "23.0.0 rc3"
+//    compileSdkVersion 'android-MNC'
+//    buildToolsVersion "23.0.0 rc3"
 
     defaultConfig {
         applicationId "com.onlyapps.sample"
         minSdkVersion 9
-//        targetSdkVersion 22
-        targetSdkVersion 'MNC'
+        targetSdkVersion 22
+//        targetSdkVersion 'MNC'
         versionCode 1
         versionName "1.0"
     }

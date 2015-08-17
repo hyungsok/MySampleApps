@@ -35,6 +35,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("10.ReaimListView");
         adapter.add("11.AlarmManagerTestActivity");
         adapter.add("12.UnigueIdActivity");
+        adapter.add("13.ZoomScrollViewSimpleActivity");
+        adapter.add("13.ZoomScrollViewCustomActivity");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setSelection(adapter.getCount() - 1);
@@ -85,6 +87,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 12:
                 startActivity(new Intent(this, UnigueIdActivity.class));
+                break;
+            case 13:
+                startActivity(new Intent(this, ZoomScrollViewSimpleActivity.class));
+                break;
+            case 14:
+                startActivity(new Intent(this, ZoomScrollViewCustomActivity.class));
                 break;
         }
     }
