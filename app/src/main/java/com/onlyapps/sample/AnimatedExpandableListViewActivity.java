@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.view.AnimatedExpandableListView;
 
 /**

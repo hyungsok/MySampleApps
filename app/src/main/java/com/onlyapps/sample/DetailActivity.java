@@ -32,7 +32,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.utils.Utils;
 
 /**

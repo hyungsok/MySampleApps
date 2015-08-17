@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.etsy.android.sample.R;
-
 public class AlarmManagerTestActivity extends Activity {
 
     private BroadcastReceiver mBroadcastReceiver;

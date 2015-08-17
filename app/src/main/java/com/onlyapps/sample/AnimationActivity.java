@@ -8,8 +8,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
-import com.etsy.android.sample.R;
-
 public class AnimationActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

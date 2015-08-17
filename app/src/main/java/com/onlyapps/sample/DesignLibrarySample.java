@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.etsy.android.sample.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +53,8 @@ public class DesignLibrarySample extends AppCompatActivity {
     }
 
     static class Adapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
-        private final List<String> mFragmentTitles = new ArrayList<>();
+        private final List<Fragment> mFragments = new ArrayList<Fragment>();
+        private final List<String> mFragmentTitles = new ArrayList<String>();
 
         public Adapter(FragmentManager fm) {
             super(fm);

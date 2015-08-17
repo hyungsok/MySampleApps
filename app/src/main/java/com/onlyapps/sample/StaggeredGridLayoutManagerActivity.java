@@ -12,7 +12,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.adapter.ItemHolder;
 import com.onlyapps.sample.utils.MarginDecoration;
 import com.onlyapps.sample.utils.RecyclerItemClickListener;

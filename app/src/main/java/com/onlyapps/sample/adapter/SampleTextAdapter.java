@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 import com.onlyapps.sample.view.DynamicHeightTextView;
 
 import java.util.ArrayList;

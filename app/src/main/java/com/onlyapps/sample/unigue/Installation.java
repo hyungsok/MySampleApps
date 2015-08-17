@@ -1,4 +1,4 @@
-package com.onlyapps.sample.utils;
+package com.onlyapps.sample.unigue;
 
 import android.content.Context;
 
@@ -37,6 +37,14 @@ public class Installation {
         return new String(bytes);
     }
 
+    /**
+     * UUID
+     * UUID는 36글자의 char형 데이터가 반환되게 됩니다.
+     * 해당 함수를 통해서 구한 UUID는 휴대폰을 초기화 시켜야만 변경하실 수 있습니다.
+     * 어플을 아무리 삭제하여도 UUID는 변경되지 않습니다
+     * @param installation
+     * @throws IOException
+     */
     private static void writeInstallationFile(File installation) throws IOException {
         FileOutputStream out = new FileOutputStream(installation);
         String id = UUID.randomUUID().toString();

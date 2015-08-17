@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.utils.ExpandableListViewHelper;
 
 /**

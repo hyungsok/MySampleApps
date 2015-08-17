@@ -24,7 +24,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 import android.widget.ListView;
 
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

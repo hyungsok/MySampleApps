@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 
 /**
  * Created by hyungsoklee on 2015. 7. 24..

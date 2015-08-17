@@ -3,7 +3,6 @@ package com.onlyapps.sample;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.view.SynchronizedScrollView;
 
 

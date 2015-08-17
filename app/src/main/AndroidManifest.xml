@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.etsy.android.sample"
+    package="com.onlyapps.sample"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,6 +8,9 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="19" />
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -22,7 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.onlyapps.sample.MainActivity"
+            android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,26 +34,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.onlyapps.sample.GridLayoutManagerActivity" />
-        <activity android:name="com.onlyapps.sample.StaggeredGridLayoutManagerActivity" />
-        <activity android:name="com.onlyapps.sample.DetailActivity" />
-        <activity android:name="com.onlyapps.sample.DetailRevealBackgroundViewActivity" />
-        <activity android:name="com.onlyapps.sample.AnimationActivity" />
-        <activity android:name="com.onlyapps.sample.AnimationDetailActivity" />
-        <activity android:name="com.onlyapps.sample.RevealBackgroundActivity" />
-        <activity android:name="com.onlyapps.sample.AnimatedExpandableListViewActivity" />
-        <activity android:name="com.onlyapps.sample.AnimatedExpandableSimpleListView" />
-        <activity android:name="com.onlyapps.sample.listviewremovalanimation.ListViewRemovalAnimation" />
-        <activity android:name="com.onlyapps.sample.CustomViewTestActivity" />
+        <activity android:name=".GridLayoutManagerActivity" />
+        <activity android:name=".StaggeredGridLayoutManagerActivity" />
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".DetailRevealBackgroundViewActivity" />
+        <activity android:name=".AnimationActivity" />
+        <activity android:name=".AnimationDetailActivity" />
+        <activity android:name=".RevealBackgroundActivity" />
+        <activity android:name=".AnimatedExpandableListViewActivity" />
+        <activity android:name=".AnimatedExpandableSimpleListView" />
+        <activity android:name=".listviewremovalanimation.ListViewRemovalAnimation" />
+        <activity android:name=".CustomViewTestActivity" />
         <activity
-            android:name="com.onlyapps.sample.DesignLibrarySample"
+            android:name=".DesignLibrarySample"
             android:theme="@style/DesignTheme" />
-        <activity android:name="com.onlyapps.sample.ScrollViewSampleActivity" />
-        <activity android:name="com.onlyapps.sample.ReaimListViewActivity" />
+        <activity android:name=".ScrollViewSampleActivity" />
+        <activity android:name=".ReaimListViewActivity" />
 
         <!-- Widget Broadcast receiver -->
         <receiver
-            android:name="com.onlyapps.sample.appwidget.TimeWidgetProvider"
+            android:name=".appwidget.TimeWidgetProvider"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name" >
             <intent-filter>
@@ -61,15 +64,13 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_metadata" />
         </receiver>
-        <!-- Broadcast receiver -->
-        <receiver android:name="com.onlyapps.sample.appwidget.AlarmManagerBroadcastReceiver" />
 
-        <activity android:name="com.onlyapps.sample.AlarmManagerTestActivity" >
-        </activity>
-        <activity
-            android:name="com.onlyapps.sample.UnigueIdActivity"
-            android:label="@string/title_activity_unigue_id" >
-        </activity>
+        <activity android:name=".AlarmManagerTestActivity" />
+        <activity android:name=".UnigueIdActivity" />
+
+        <!-- Broadcast receiver -->
+        <receiver android:name=".appwidget.AlarmManagerBroadcastReceiver" />
+
     </application>
 
 </manifest>

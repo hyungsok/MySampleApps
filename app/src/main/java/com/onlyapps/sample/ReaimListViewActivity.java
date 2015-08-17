@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.reaim.MyAdapter;
 import com.onlyapps.sample.reaim.TimeStamp;
 import com.onlyapps.sample.reaim.WorkerHandler;

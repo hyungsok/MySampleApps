@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.widget.RemoteViews;
 
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;

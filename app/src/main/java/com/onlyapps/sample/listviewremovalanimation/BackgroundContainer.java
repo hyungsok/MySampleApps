@@ -22,7 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 
 public class BackgroundContainer extends FrameLayout {
 

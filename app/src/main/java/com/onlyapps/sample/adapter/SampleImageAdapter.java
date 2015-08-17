@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 import com.onlyapps.sample.utils.Utils;
 import com.onlyapps.sample.view.DynamicHeightImageView;
 

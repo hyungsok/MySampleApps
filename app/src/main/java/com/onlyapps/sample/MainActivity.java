@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.listviewremovalanimation.ListViewRemovalAnimation;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {

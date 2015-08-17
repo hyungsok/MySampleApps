@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 
-import com.etsy.android.sample.R;
 import com.onlyapps.sample.view.RevealBackgroundView;
 
 

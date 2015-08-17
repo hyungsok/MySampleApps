@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.etsy.android.sample.R;
-
 /**
  * Created by hyungsoklee on 2015. 7. 2..
  */

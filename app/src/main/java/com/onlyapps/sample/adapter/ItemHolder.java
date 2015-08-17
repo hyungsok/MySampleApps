@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 import com.onlyapps.sample.view.DynamicHeightImageView;
 
 /**

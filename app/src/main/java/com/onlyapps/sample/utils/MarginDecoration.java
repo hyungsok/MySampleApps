@@ -5,7 +5,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.etsy.android.sample.R;
+import com.onlyapps.sample.R;
 
 /**
  * Created by hyungsoklee on 2015. 6. 18..

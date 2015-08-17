@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.etsy.android.sample.R;
-
 /**
  * Created by hyungsoklee on 2015. 7. 13..
  */
