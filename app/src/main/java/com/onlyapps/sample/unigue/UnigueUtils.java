@@ -11,6 +11,8 @@ import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 /**
@@ -50,7 +52,7 @@ public class UnigueUtils {
                     return null;
                 }
             } else {
-                return (String) Build.class.getField("SERIAL").get(null);
+                return Build.SERIAL;
             }
         } catch (Exception ignored) {
             return null;
@@ -106,13 +108,20 @@ public class UnigueUtils {
      */
     public static String getMakeUnigueIdByBuild() {
         return  "35" +
-                Build.BOARD.length()%10+ Build.BRAND.length()%10 +
-                Build.CPU_ABI.length()%10 + Build.DEVICE.length()%10 +
-                Build.DISPLAY.length()%10 + Build.HOST.length()%10 +
-                Build.ID.length()%10 + Build.MANUFACTURER.length()%10 +
-                Build.MODEL.length()%10 + Build.PRODUCT.length()%10 +
-                Build.TAGS.length()%10 + Build.TYPE.length()%10 +
-                Build.USER.length()%10 ; //13 digits
+                Build.BOARD.length()%10 +
+                Build.BRAND.length()%10 +
+                Build.CPU_ABI.length()%10 +
+                Build.DEVICE.length()%10 +
+                Build.DISPLAY.length()%10 +
+                Build.HOST.length()%10 +
+                Build.ID.length()%10 +
+                Build.MANUFACTURER.length()%10 +
+                Build.MODEL.length()%10 +
+                Build.PRODUCT.length()%10 +
+                Build.TAGS.length()%10 +
+                Build.TYPE.length()%10 +
+                Build.USER.length()%10 ;
+                //13 digits
     }
 
     /**
@@ -144,6 +153,18 @@ public class UnigueUtils {
         }
     }
 
+    public static String getUnigueId() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Build.MODEL);
+        sb.append(Build.DEVICE);
+        sb.append(Build.MANUFACTURER);
+        sb.append(getDeviceSerialNumber());
+        String id = getHash(sb.toString());
+        Log.d(TAG, "getUnigueId() : " + id.getBytes().length);
+        return id;
+    }
+
+
     /**
      *
      * @param context
@@ -152,7 +173,9 @@ public class UnigueUtils {
     public static String getUnigueId(Context context) {
         final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         final String serial = getDeviceSerialNumber();
-        return new UUID(androidId.hashCode(), serial.hashCode()).toString();
+        String id = new UUID(androidId.hashCode(), serial.hashCode()).toString();
+        Log.d(TAG, "getUnigueId(Context) : " + id.getBytes().length);
+        return id;
     }
 
     /**
@@ -185,6 +208,33 @@ public class UnigueUtils {
             Log.e(TAG, e.toString());
         }
         return null;
+    }
+
+    public static String getHash(String stringToHash) {
+
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        byte[] result = null;
+
+        try {
+            result = digest.digest(stringToHash.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (byte b : result) {
+            sb.append(String.format("%02X", b));
+        }
+
+        String messageDigest = sb.toString();
+        return messageDigest;
     }
 
 

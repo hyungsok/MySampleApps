@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.onlyapps.sample.adapter.ItemHolder;
+import com.onlyapps.sample.utils.GoogleAnalyticsManager;
 import com.onlyapps.sample.utils.MarginDecoration;
 import com.onlyapps.sample.utils.RecyclerItemClickListener;
 import com.onlyapps.sample.utils.SampleData;
@@ -24,9 +25,12 @@ import java.util.ArrayList;
  * Created by hyungsoklee on 2015. 6. 18..
  */
 public class StaggeredGridLayoutManagerActivity extends Activity implements RecyclerItemClickListener.OnItemClickListener {
+    private static final String TAG = StaggeredGridLayoutManagerActivity.class.getSimpleName();
+
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
     private MyRecyclerViewAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,8 @@ public class StaggeredGridLayoutManagerActivity extends Activity implements Recy
 
     @Override
     public void onItemClick(View childView, int position) {
+        GoogleAnalyticsManager.getInstance().sendEvent(TAG, "onItemClick", "아이템클릭", Long.valueOf(position));
+
         int[] startingLocation = new int[2];
         childView.getLocationOnScreen(startingLocation);
         startingLocation[0] += childView.getWidth() / 2;

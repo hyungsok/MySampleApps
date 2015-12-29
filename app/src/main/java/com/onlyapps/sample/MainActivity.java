@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.onlyapps.sample.listviewremovalanimation.ListViewRemovalAnimation;
+import com.onlyapps.sample.utils.GoogleAnalyticsManager;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -22,21 +23,22 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         mListView = (ListView) findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-        adapter.add("00.StaggeredGridLayoutManager");
-        adapter.add("01.GridLayoutManager");
-        adapter.add("02.Animation");
-        adapter.add("03.RevealBackgroundView");
-        adapter.add("04.AnimatedExpandableListView");
-        adapter.add("05.AnimatedExpandableSimpleListView");
-        adapter.add("06.AnimatedListViewRemoved");
-        adapter.add("07.CustomViewTest");
-        adapter.add("08.DesignLibrarySample");
-        adapter.add("09.ScrollViewSample");
-        adapter.add("10.ReaimListView");
-        adapter.add("11.AlarmManagerTestActivity");
-        adapter.add("12.UnigueIdActivity");
-        adapter.add("13.ZoomScrollViewSimpleActivity");
-        adapter.add("13.ZoomScrollViewCustomActivity");
+        adapter.add("00. StaggeredGridLayoutManager");
+        adapter.add("01. GridLayoutManager");
+        adapter.add("02. Animation");
+        adapter.add("03. RevealBackgroundView");
+        adapter.add("04. AnimatedExpandableListView");
+        adapter.add("05. AnimatedExpandableSimpleListView");
+        adapter.add("06. AnimatedListViewRemoved");
+        adapter.add("07. CustomViewTest");
+        adapter.add("08. DesignLibrarySample");
+        adapter.add("09. ScrollViewSample");
+        adapter.add("10. ReaimListView");
+        adapter.add("11. AlarmManagerTestActivity");
+        adapter.add("12. UnigueIdActivity");
+        adapter.add("13. ZoomScrollViewSimpleActivity");
+        adapter.add("14. ZoomScrollViewCustomActivity");
+        adapter.add("15. AnnotationTestActivity");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setSelection(adapter.getCount() - 1);
@@ -44,6 +46,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        // Answers.getInstance().logCustom(new CustomEvent("onItemClick() " + position));
+        GoogleAnalyticsManager.getInstance().sendView("onItemClick() " + position);
+
         switch (position + mListView.getHeaderViewsCount()) {
             case 0:
                 startActivity(new Intent(this, StaggeredGridLayoutManagerActivity.class));
@@ -94,6 +100,21 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             case 14:
                 startActivity(new Intent(this, ZoomScrollViewCustomActivity.class));
                 break;
+            case 15:
+                startActivity(new Intent(this, AnnotationTestActivity.class));
+                break;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalyticsManager.getInstance().activityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalyticsManager.getInstance().activityStop(this);
     }
 }

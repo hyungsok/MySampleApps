@@ -1,5 +1,6 @@
 package com.onlyapps.sample;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -9,7 +10,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,17 +35,23 @@ public class AlarmManagerTestActivity extends Activity {
         unregisterAlarmBroadcast();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void scheduleJob(View v) {
+        Log.d("AAA", "scheduleJob()");
         Toast.makeText(this, "scheduleJob()", Toast.LENGTH_SHORT).show();
 
-        long triggerTime = 2000;
+        long triggerTime = 60 * 75 * 1000;
         // 1초마다 계속 호출
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), triggerTime, mPendingIntent);
-//        AlarmManager.AlarmClockInfo info = new AlarmManager.AlarmClockInfo(triggerTime, mPendingIntent);
-//        mAlarmManager.setAlarmClock(info, info.getShowIntent());
+//        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, mPendingIntent);
+        AlarmManager.AlarmClockInfo info = new AlarmManager.AlarmClockInfo(System.currentTimeMillis() + triggerTime, mPendingIntent);
+        mAlarmManager.setAlarmClock(info, info.getShowIntent());
+
+
+
     }
 
     public void cancelAllJobs(View v) {
+        Log.d("AAA", "cancelAllJobs()");
         Toast.makeText(this, "cancelAllJobs()", Toast.LENGTH_SHORT).show();
         mAlarmManager.cancel(mPendingIntent);
     }
@@ -52,8 +61,10 @@ public class AlarmManagerTestActivity extends Activity {
             private int index = 0;
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.d("AAA", "BroadcastReceiver onReceive() : " + intent);
                 Toast.makeText(context, "Alarm time has been reached", Toast.LENGTH_LONG).show();
                 showNotification("Test : " + index++);
+                scheduleJob(null);
             }
         };
 

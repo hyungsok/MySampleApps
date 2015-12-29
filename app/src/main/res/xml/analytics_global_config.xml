@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="ga_logLevel">verbose</string>
+
+    <integer name="ga_dispatchPeriod">1</integer>
+
+    <bool name="ga_dryRun">false</bool>
+
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!--Enable automatic activity tracking-->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!--Enable automatic exception tracking-->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+</resources>

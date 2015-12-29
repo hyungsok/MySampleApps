@@ -127,7 +127,7 @@ public class DeviceID {
             Log.d(TAG, "getSerialNumber() : " + serialNumber);
             return serialNumber;
         } catch (Exception e) {
-            Log.e(TAG, "getDeviceId() : " + e);
+            Log.e(TAG, "getSerialNumber() : " + e);
             return null;
         }
     }

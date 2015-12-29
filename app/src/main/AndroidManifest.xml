@@ -6,13 +6,15 @@
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -56,13 +58,17 @@
         <activity
             android:name=".ZoomScrollViewSimpleActivity"
             android:theme="@style/DesignTheme" />
-
         <activity
             android:name=".ZoomScrollViewCustomActivity"
-            android:theme="@style/DesignTheme"/>
+            android:theme="@style/DesignTheme" />
+        <activity android:name=".AnnotationTestActivity"/>
 
         <!-- Broadcast receiver -->
         <receiver android:name=".appwidget.AlarmManagerBroadcastReceiver" />
+
+        <meta-data
+            android:name="com.google.android.gms.analytics.globalConfigResource"
+            android:resource="@xml/analytics_global_config" />
 
         <!-- Widget Broadcast receiver -->
         <receiver
@@ -78,6 +84,11 @@
                 android:resource="@xml/widget_metadata" />
         </receiver>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="19cd210c4a1685b81e7fca454acaa7dbafa90408" />
+
+        >
     </application>
 
 </manifest>

@@ -118,4 +118,5 @@
     <string name="title_activity_unigue_id">UnigueIdActivity</string>
     <string name="title_activity_zoomable_scroll_view">ZoomableScrollViewActivity</string>
     <string name="title_activity_zoom_scroll_view_custom">ZoomScrollViewCustomActivity</string>
+    <string name="title_activity_file_save_test">FileSaveTestActivity</string>
 </resources>
