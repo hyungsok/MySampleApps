@@ -39,9 +39,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("13. ZoomScrollViewSimpleActivity");
         adapter.add("14. ZoomScrollViewCustomActivity");
         adapter.add("15. AnnotationTestActivity");
+        adapter.add("16. RecyclerQuickReturnActivity");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
-        mListView.setSelection(adapter.getCount() - 1);
+        // mListView.setSelection(adapter.getCount() - 1);
     }
 
     @Override
@@ -102,6 +103,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 15:
                 startActivity(new Intent(this, AnnotationTestActivity.class));
+                break;
+            case 16:
+                startActivity(new Intent(this, RecyclerQuickReturnActivity.class));
                 break;
         }
     }

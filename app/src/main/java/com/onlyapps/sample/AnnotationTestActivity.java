@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.onlyapps.aspectj.DebugTrace;
+
 import hugo.weaving.DebugLog;
 
+/**
+ * 어노테이선 처리
+ */
 public class AnnotationTestActivity extends Activity {
 
-    @Override
+    @DebugTrace
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annotation_test);
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @DebugLog
-            @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Hello, button1!", Toast.LENGTH_SHORT).show();
             }
@@ -23,7 +27,6 @@ public class AnnotationTestActivity extends Activity {
 
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @DebugLog
-            @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Hello, button2!", Toast.LENGTH_SHORT).show();
             }
@@ -32,7 +35,7 @@ public class AnnotationTestActivity extends Activity {
         testAnnotatedMethod(1000);
     }
 
-    @DebugLog
+    @DebugTrace
     private void testAnnotatedMethod(long time) {
         try {
             Thread.sleep(time);
@@ -43,3 +46,4 @@ public class AnnotationTestActivity extends Activity {
 
 
 }
+

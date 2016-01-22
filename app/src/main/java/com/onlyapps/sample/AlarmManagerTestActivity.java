@@ -47,7 +47,6 @@ public class AlarmManagerTestActivity extends Activity {
         mAlarmManager.setAlarmClock(info, info.getShowIntent());
 
 
-
     }
 
     public void cancelAllJobs(View v) {
@@ -59,6 +58,7 @@ public class AlarmManagerTestActivity extends Activity {
     private void registerAlarmBroadcast() {
         mBroadcastReceiver = new BroadcastReceiver() {
             private int index = 0;
+
             @Override
             public void onReceive(Context context, Intent intent) {
                 Log.d("AAA", "BroadcastReceiver onReceive() : " + intent);
@@ -70,7 +70,7 @@ public class AlarmManagerTestActivity extends Activity {
 
         registerReceiver(mBroadcastReceiver, new IntentFilter("sample"));
         mPendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("sample"), 0);
-        mAlarmManager = (AlarmManager)(this.getSystemService(Context.ALARM_SERVICE));
+        mAlarmManager = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
     }
 
     private void unregisterAlarmBroadcast() {
@@ -80,19 +80,23 @@ public class AlarmManagerTestActivity extends Activity {
 
     private void showNotification(String text) {
         //We get a reference to the NotificationManager
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         String MyText = "Reminder";
-        Notification mNotification = new Notification(R.drawable.icon_search_magnifier, MyText, System.currentTimeMillis());
-        //The three parameters are: 1. an icon, 2. a title, 3. time when the notification appears
-
         String MyNotificationTitle = "Alarm!";
-        String MyNotificationText  = text;
+        String MyNotificationText = text;
 
-        Intent MyIntent = new Intent(Intent.ACTION_VIEW);
-        PendingIntent StartIntent = PendingIntent.getActivity(getApplicationContext(),0,MyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        mNotification.setLatestEventInfo(getApplicationContext(), MyNotificationTitle, MyNotificationText, StartIntent);
+        Intent myIntent = new Intent(Intent.ACTION_VIEW);
+        PendingIntent intent = PendingIntent.getActivity(getApplicationContext(), 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        Notification noti = new Notification.Builder(this)
+                .setTicker(MyText)
+                .setContentTitle(MyNotificationTitle)
+                .setContentText(MyNotificationText)
+                .setSmallIcon(R.drawable.icon_search_magnifier)
+                .setContentIntent(intent)
+                .build();
+
         int NOTIFICATION_ID = 1;
-        notificationManager.notify(NOTIFICATION_ID , mNotification);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID, noti);
     }
 }

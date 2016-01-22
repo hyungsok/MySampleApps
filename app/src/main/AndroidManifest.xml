@@ -63,6 +63,10 @@
             android:theme="@style/DesignTheme" />
         <activity android:name=".AnnotationTestActivity"/>
 
+        <activity
+            android:theme="@style/Base.MyTheme"
+            android:name=".RecyclerQuickReturnActivity" />
+
         <!-- Broadcast receiver -->
         <receiver android:name=".appwidget.AlarmManagerBroadcastReceiver" />
 

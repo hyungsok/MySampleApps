@@ -21,7 +21,7 @@
 
     <com.onlyapps.sample.view.RevealBackgroundView
         android:id="@+id/vRevealBackground"
-        android:background="@color/grey"
+        android:background="@color/blue_grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
