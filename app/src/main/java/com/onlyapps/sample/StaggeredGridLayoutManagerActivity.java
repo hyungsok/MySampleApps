@@ -41,7 +41,6 @@ public class StaggeredGridLayoutManagerActivity extends Activity implements Recy
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
         mRecyclerView.addItemDecoration(new MarginDecoration(this));
 
-
         mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         mRecyclerView.setLayoutManager(mLayoutManager);
