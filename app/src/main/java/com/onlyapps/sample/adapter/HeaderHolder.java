@@ -14,6 +14,7 @@ public class HeaderHolder extends RecyclerView.ViewHolder {
     public View root;
     public ImageView image;
     public TextView text;
+    public boolean isStickty = false;
 
     public HeaderHolder(View itemView) {
         super(itemView);
