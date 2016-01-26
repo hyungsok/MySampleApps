@@ -39,10 +39,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("13. ZoomScrollViewSimpleActivity");
         adapter.add("14. ZoomScrollViewCustomActivity");
         adapter.add("15. AnnotationTestActivity");
-        adapter.add("16. RecyclerQuickReturnActivity");
+        adapter.add("16. RecyclerQuickReturn (DesignLibrary-v23)");
+        adapter.add("17. RecyclerStickyListView");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
-        // mListView.setSelection(adapter.getCount() - 1);
+        mListView.setSelection(adapter.getCount() - 1);
     }
 
     @Override
@@ -106,6 +107,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 16:
                 startActivity(new Intent(this, RecyclerQuickReturnActivity.class));
+                break;
+            case 17:
+                startActivity(new Intent(this, RecycleStickyListViewActivity.class));
                 break;
         }
     }

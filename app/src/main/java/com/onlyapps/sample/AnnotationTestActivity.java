@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.onlyapps.aspectj.DebugTrace;
+import com.onlyapps.sample.debug.DebugTrace;
 
 import hugo.weaving.DebugLog;
 

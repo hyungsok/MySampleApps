@@ -67,6 +67,8 @@
             android:theme="@style/Base.MyTheme"
             android:name=".RecyclerQuickReturnActivity" />
 
+        <activity android:name=".RecycleStickyListViewActivity" />
+
         <!-- Broadcast receiver -->
         <receiver android:name=".appwidget.AlarmManagerBroadcastReceiver" />
 
