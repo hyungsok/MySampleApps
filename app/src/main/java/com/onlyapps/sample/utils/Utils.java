@@ -1,7 +1,9 @@
 package com.onlyapps.sample.utils;
 
+import android.graphics.Color;
 import android.util.SparseArray;
 
+import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.Random;
 
@@ -37,5 +39,19 @@ public class Utils {
 
     public static double getRandomHeightRatio() {
         return (mRandom.nextDouble() / 2.0) + 1.0;
+    }
+
+
+    public static int getRandomColor() {
+        SecureRandom rgen = new SecureRandom();
+        return Color.HSVToColor(150, new float[]{
+                rgen.nextInt(359), 1, 1
+        });
+    }
+
+    public static int getRandomColor(int position) {
+        return Color.HSVToColor(150, new float[]{
+                position, 1, 1
+        });
     }
 }

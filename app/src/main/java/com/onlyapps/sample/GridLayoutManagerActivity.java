@@ -49,6 +49,8 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            private int mLastedStickyViewIndex = -1;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -58,21 +60,25 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int position = mLayoutManager.findFirstVisibleItemPosition();
-
-                if (position > STICKY_VIEW_INDEX) {
-                    if (mStickeyView.getChildCount() == 0) {
-                        RecyclerView.ViewHolder holder = mAdapter.onCreateContentItemViewHolder(recyclerView, TYPE_STICKEY);
-                        mAdapter.onBindContentItemViewHolder(holder, position);
-                        mStickeyView.addView(holder.itemView);
-                    }
-                } else {
-                    if (mStickeyView.getChildCount() > 0) {
-                        mStickeyView.removeAllViews();
+                if (position > 0) {
+                    RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
+                    if (holder instanceof HeaderHolder) {
+                        if (mStickeyView.getChildCount() == 0) {
+                            recyclerView.removeView(holder.itemView);
+                            mStickeyView.addView(holder.itemView);
+                            mStickeyView.setVisibility(View.VISIBLE);
+                            mLastedStickyViewIndex = position;
+                        }
+                    } else if (mLastedStickyViewIndex > position) {
+                        if (mStickeyView.getChildCount() > 0) {
+                            mStickeyView.removeAllViews();
+                            mStickeyView.setVisibility(View.GONE);
+                        }
                     }
                 }
-
             }
         });
+
 
         mRecyclerView.addItemDecoration(new MarginDecoration(this));
         mAdapter = new MyHeaderRecycleViewAdapter(this);
@@ -113,6 +119,10 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
 
     @Override
     public void onItemClick(View childView, int position) {
+        if (position == 0 || position == STICKY_VIEW_INDEX + 1) {
+            Toast.makeText(getApplicationContext(), "onItemClick() : " + position, Toast.LENGTH_SHORT).show();
+            return;
+        }
         int[] startingLocation = new int[2];
         childView.getLocationOnScreen(startingLocation);
         startingLocation[0] += childView.getWidth() / 2;
@@ -199,9 +209,9 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
 
         @Override
         protected void onBindHeaderItemViewHolder(RecyclerView.ViewHolder headerViewHolder, int position) {
-            if (headerViewHolder instanceof HeaderHolder) {
-                HeaderHolder vh = (HeaderHolder) headerViewHolder;
-            }
+//            if (headerViewHolder instanceof HeaderHolder) {
+//                HeaderHolder vh = (HeaderHolder) headerViewHolder;
+//            }
         }
 
         @Override
@@ -210,7 +220,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         }
 
         @Override
-        protected void onBindContentItemViewHolder(RecyclerView.ViewHolder contentViewHolder, int position) {
+        protected void onBindContentItemViewHolder(RecyclerView.ViewHolder contentViewHolder, final int position) {
             if (contentViewHolder instanceof ItemHolder) {
                 ItemHolder vh = (ItemHolder) contentViewHolder;
                 Glide.with(mContext).load(mDatas.get(position)).into(vh.image);
@@ -218,8 +228,14 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
                 vh.image.setHeightRatio(1);
             } else if (contentViewHolder instanceof HeaderHolder) {
                 HeaderHolder vh = (HeaderHolder) contentViewHolder;
-                vh.root.setBackgroundColor(Color.BLUE);
-                vh.text.setText("Stickey View");
+                vh.root.setBackgroundColor(Utils.getRandomColor(position));
+                vh.root.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(v.getContext(), "Header : " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                vh.text.setText("Stickey View : " + position);
                 vh.text.setTextColor(Color.WHITE);
             }
         }

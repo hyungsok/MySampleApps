@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("17. RecyclerStickyListView");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
-        mListView.setSelection(adapter.getCount() - 1);
+//        mListView.setSelection(adapter.getCount() - 1);
     }
 
     @Override
