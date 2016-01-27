@@ -11,6 +11,7 @@ import com.onlyapps.sample.R;
  * Created by hyungsoklee on 2015. 6. 18..
  */
 public class HeaderHolder extends RecyclerView.ViewHolder {
+    public int id;
     public View root;
     public ImageView image;
     public TextView text;

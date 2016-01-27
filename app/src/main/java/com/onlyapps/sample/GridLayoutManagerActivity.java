@@ -23,6 +23,7 @@ import com.onlyapps.sample.utils.SampleData;
 import com.onlyapps.sample.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hyungsoklee on 2015. 6. 18..
@@ -34,7 +35,13 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
     private GridLayoutManager mLayoutManager;
     private MyHeaderRecycleViewAdapter mAdapter;
 
-    private static final int STICKY_VIEW_INDEX = 6;
+    private static final List<Integer> STICKY_VIEWS = new ArrayList<Integer>();
+    {
+        STICKY_VIEWS.add(6);
+        STICKY_VIEWS.add(12);
+        STICKY_VIEWS.add(15);
+        STICKY_VIEWS.add(20);
+    }
 
     private static final int TYPE_CONTENT = 0;
     private static final int TYPE_STICKEY = 1;
@@ -62,20 +69,58 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
                 int position = mLayoutManager.findFirstVisibleItemPosition();
                 if (position > 0) {
                     RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
-                    if (holder instanceof HeaderHolder) {
-                        if (mStickeyView.getChildCount() == 0) {
-                            recyclerView.removeView(holder.itemView);
-                            mStickeyView.addView(holder.itemView);
-                            mStickeyView.setVisibility(View.VISIBLE);
-                            mLastedStickyViewIndex = position;
+                    if (isStickyHeader(holder)) {
+                        if (isSticky()) {
+                            removeStickView();
+                        }
+                        if (!isSticky()) {
+                            addStickyView(recyclerView, position);
                         }
                     } else if (mLastedStickyViewIndex > position) {
-                        if (mStickeyView.getChildCount() > 0) {
-                            mStickeyView.removeAllViews();
-                            mStickeyView.setVisibility(View.GONE);
+                        if (isSticky()) {
+                            removeStickView();
+
+                            int headerPostion = preStickHeader(position);
+                            if (headerPostion > 0) {
+                                if (!isSticky()) {
+                                    addStickyView(recyclerView, headerPostion);
+                                }
+                            }
                         }
                     }
                 }
+            }
+
+            private boolean isStickyHeader(RecyclerView.ViewHolder holder) {
+                return (holder instanceof HeaderHolder && ((HeaderHolder) holder).isStickty);
+            }
+
+            private boolean isSticky() {
+                return mStickeyView.getChildCount() > 0;
+            }
+
+            private void addStickyView(RecyclerView recyclerView, int position) {
+                RecyclerView.ViewHolder holder = mAdapter.onCreateContentItemViewHolder(recyclerView, TYPE_STICKEY);
+                mAdapter.onBindContentItemViewHolder(holder, position - mAdapter.getHeaderItemCount());
+
+                mStickeyView.addView(holder.itemView);
+                mStickeyView.setVisibility(View.VISIBLE);
+                mLastedStickyViewIndex = position;
+            }
+
+            private void removeStickView() {
+                mStickeyView.removeAllViews();
+                mStickeyView.setVisibility(View.GONE);
+            }
+
+            private int preStickHeader(int position) {
+                for (int i = STICKY_VIEWS.size() - 1; i >= 0; i--) {
+                    int p = STICKY_VIEWS.get(i);
+                    if(position >= p) {
+                        return p;
+                    }
+                }
+                return 0;
             }
         });
 
@@ -86,7 +131,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return (position == 0 || position == STICKY_VIEW_INDEX + 1) ? mLayoutManager.getSpanCount() : 1;
+                return (position == 0 || STICKY_VIEWS.contains(position)) ? mLayoutManager.getSpanCount() : 1;
             }
         });
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -119,7 +164,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
 
     @Override
     public void onItemClick(View childView, int position) {
-        if (position == 0 || position == STICKY_VIEW_INDEX + 1) {
+        if (position == 0 || STICKY_VIEWS.contains(position + mAdapter.getHeaderItemCount())) {
             Toast.makeText(getApplicationContext(), "onItemClick() : " + position, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -176,7 +221,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
 
         @Override
         protected int getContentItemViewType(int position) {
-            if(position == STICKY_VIEW_INDEX) {
+            if (STICKY_VIEWS.contains(position + getHeaderItemCount())) {
                 return TYPE_STICKEY;
             }
             return TYPE_CONTENT;
@@ -228,6 +273,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
                 vh.image.setHeightRatio(1);
             } else if (contentViewHolder instanceof HeaderHolder) {
                 HeaderHolder vh = (HeaderHolder) contentViewHolder;
+                vh.id = position;
                 vh.root.setBackgroundColor(Utils.getRandomColor(position));
                 vh.root.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -235,6 +281,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
                         Toast.makeText(v.getContext(), "Header : " + position, Toast.LENGTH_SHORT).show();
                     }
                 });
+                vh.isStickty = true;
                 vh.text.setText("Stickey View : " + position);
                 vh.text.setTextColor(Color.WHITE);
             }
