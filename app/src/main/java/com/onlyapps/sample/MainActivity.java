@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("06. AnimatedListViewRemoved");
         adapter.add("07. CustomViewTest");
         adapter.add("08. DesignLibrarySample");
-        adapter.add("09. ScrollViewSample");
+        adapter.add("09. SynchronizedScrollViewSample");
         adapter.add("10. ReaimListView");
         adapter.add("11. AlarmManagerTestActivity");
         adapter.add("12. UnigueIdActivity");

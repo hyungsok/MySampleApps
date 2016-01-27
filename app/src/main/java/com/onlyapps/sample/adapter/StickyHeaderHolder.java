@@ -1,22 +1,22 @@
 package com.onlyapps.sample.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.onlyapps.sample.R;
+import com.onlyapps.sample.recycleviews.OnScrollStickyViewListener;
 
 /**
  * Created by hyungsoklee on 2015. 6. 18..
  */
-public class HeaderHolder extends RecyclerView.ViewHolder {
+public class StickyHeaderHolder extends OnScrollStickyViewListener.StickyHolder {
     public int id;
     public View root;
     public ImageView image;
     public TextView text;
 
-    public HeaderHolder(View itemView) {
+    public StickyHeaderHolder(View itemView) {
         super(itemView);
         root = itemView;
         image = (ImageView) itemView.findViewById(R.id.image);

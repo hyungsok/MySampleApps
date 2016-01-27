@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.onlyapps.sample.adapter.HeaderFooterRecyclerViewAdapter;
 import com.onlyapps.sample.adapter.HeaderHolder;
 import com.onlyapps.sample.adapter.ItemHolder;
+import com.onlyapps.sample.adapter.StickyHeaderHolder;
+import com.onlyapps.sample.recycleviews.OnScrollStickyViewListener;
 import com.onlyapps.sample.utils.MarginDecoration;
 import com.onlyapps.sample.utils.RecyclerItemClickListener;
 import com.onlyapps.sample.utils.SampleData;
@@ -55,74 +57,79 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         mStickeyView = (LinearLayout) findViewById(R.id.sticky);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int mLastedStickyViewIndex = -1;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int position = mLayoutManager.findFirstVisibleItemPosition();
-                if (position > 0) {
-                    RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
-                    if (isStickyHeader(holder)) {
-                        if (isSticky()) {
-                            removeStickView();
-                        }
-                        if (!isSticky()) {
-                            addStickyView(recyclerView, position);
-                        }
-                    } else if (mLastedStickyViewIndex > position) {
-                        if (isSticky()) {
-                            removeStickView();
-
-                            int headerPostion = preStickHeader(position);
-                            if (headerPostion > 0) {
-                                if (!isSticky()) {
-                                    addStickyView(recyclerView, headerPostion);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            private boolean isStickyHeader(RecyclerView.ViewHolder holder) {
-                return (holder instanceof HeaderHolder && ((HeaderHolder) holder).isStickty);
-            }
-
-            private boolean isSticky() {
-                return mStickeyView.getChildCount() > 0;
-            }
-
-            private void addStickyView(RecyclerView recyclerView, int position) {
-                RecyclerView.ViewHolder holder = mAdapter.onCreateContentItemViewHolder(recyclerView, TYPE_STICKEY);
-                mAdapter.onBindContentItemViewHolder(holder, position - mAdapter.getHeaderItemCount());
-
-                mStickeyView.addView(holder.itemView);
-                mStickeyView.setVisibility(View.VISIBLE);
-                mLastedStickyViewIndex = position;
-            }
-
-            private void removeStickView() {
-                mStickeyView.removeAllViews();
-                mStickeyView.setVisibility(View.GONE);
-            }
-
-            private int preStickHeader(int position) {
-                for (int i = STICKY_VIEWS.size() - 1; i >= 0; i--) {
-                    int p = STICKY_VIEWS.get(i);
-                    if(position >= p) {
-                        return p;
-                    }
-                }
-                return 0;
-            }
-        });
+//        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            private int mLastedStickyViewIndex = -1;
+//            private List<Integer> mStickViewList = new ArrayList<Integer>();
+//
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                int position = mLayoutManager.findFirstVisibleItemPosition();
+//                if (position > 0) {
+//                    RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
+//                    if (isStickyHeader(holder)) {
+//                        if (isSticky()) {
+//                            removeStickView();
+//                        }
+//                        if (!isSticky()) {
+//                            addStickyView(recyclerView, position);
+//                        }
+//                    } else if (mLastedStickyViewIndex > position) {
+//                        if (isSticky()) {
+//                            removeStickView();
+//
+//                            int headerPostion = preStickHeaderPosition(position);
+//                            if (headerPostion > 0) {
+//                                if (!isSticky()) {
+//                                    addStickyView(recyclerView, headerPostion);
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            private boolean isStickyHeader(RecyclerView.ViewHolder holder) {
+//                return (holder instanceof StickyHeaderHolder);
+//            }
+//
+//            private boolean isSticky() {
+//                return mStickeyView.getChildCount() > 0;
+//            }
+//
+//            private void addStickyView(RecyclerView recyclerView, int position) {
+//                RecyclerView.ViewHolder holder = mAdapter.onCreateContentItemViewHolder(recyclerView, TYPE_STICKEY);
+//                mAdapter.onBindContentItemViewHolder(holder, position - mAdapter.getHeaderItemCount());
+//
+//                mStickeyView.addView(holder.itemView);
+//                mStickeyView.setVisibility(View.VISIBLE);
+//                mLastedStickyViewIndex = position;
+//
+//                if (!mStickViewList.contains(position)) {
+//                    mStickViewList.add(position);
+//                }
+//            }
+//
+//            private void removeStickView() {
+//                mStickeyView.removeAllViews();
+//                mStickeyView.setVisibility(View.GONE);
+//            }
+//
+//            private int preStickHeaderPosition(int position) {
+//                for (int i = mStickViewList.size() - 1; i >= 0; i--) {
+//                    int p = mStickViewList.get(i);
+//                    if (position >= p) {
+//                        return p;
+//                    }
+//                }
+//                return 0;
+//            }
+//        });
 
 
         mRecyclerView.addItemDecoration(new MarginDecoration(this));
@@ -137,6 +144,9 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);
+
+        // 간단하게 아래와 같이 처리
+        mRecyclerView.addOnScrollListener(new OnScrollStickyViewListener(mLayoutManager, mStickeyView));
 
         findViewById(R.id.iv_title).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +192,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         Toast.makeText(this, "Item Long Clicked: " + position, Toast.LENGTH_SHORT).show();
     }
 
-    private class MyHeaderRecycleViewAdapter extends HeaderFooterRecyclerViewAdapter {
+    public static class MyHeaderRecycleViewAdapter extends HeaderFooterRecyclerViewAdapter {
 
         private Context mContext;
 
@@ -210,17 +220,17 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         }
 
         @Override
-        protected int getFooterItemCount() {
+        public int getFooterItemCount() {
             return 0;
         }
 
         @Override
-        protected int getContentItemCount() {
+        public int getContentItemCount() {
             return mDatas.size();
         }
 
         @Override
-        protected int getContentItemViewType(int position) {
+        public int getContentItemViewType(int position) {
             if (STICKY_VIEWS.contains(position + getHeaderItemCount())) {
                 return TYPE_STICKEY;
             }
@@ -228,19 +238,19 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         }
 
         @Override
-        protected RecyclerView.ViewHolder onCreateHeaderItemViewHolder(ViewGroup parent, int headerViewType) {
+        public RecyclerView.ViewHolder onCreateHeaderItemViewHolder(ViewGroup parent, int headerViewType) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             View convertView = inflater.inflate(R.layout.list_item_header_footer, parent, false);
             return new HeaderHolder(convertView);
         }
 
         @Override
-        protected RecyclerView.ViewHolder onCreateFooterItemViewHolder(ViewGroup parent, int footerViewType) {
+        public RecyclerView.ViewHolder onCreateFooterItemViewHolder(ViewGroup parent, int footerViewType) {
             return null;
         }
 
         @Override
-        protected RecyclerView.ViewHolder onCreateContentItemViewHolder(ViewGroup parent, int contentViewType) {
+        public RecyclerView.ViewHolder onCreateContentItemViewHolder(ViewGroup parent, int contentViewType) {
             if (contentViewType == 0) {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
                 View convertView = inflater.inflate(R.layout.list_item_image, parent, false);
@@ -248,40 +258,42 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
             } else {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
                 View convertView = inflater.inflate(R.layout.list_item_header_footer, parent, false);
-                return new HeaderHolder(convertView);
+                return new StickyHeaderHolder(convertView);
             }
         }
 
         @Override
-        protected void onBindHeaderItemViewHolder(RecyclerView.ViewHolder headerViewHolder, int position) {
+        public void onBindHeaderItemViewHolder(RecyclerView.ViewHolder headerViewHolder, int position) {
 //            if (headerViewHolder instanceof HeaderHolder) {
 //                HeaderHolder vh = (HeaderHolder) headerViewHolder;
 //            }
         }
 
         @Override
-        protected void onBindFooterItemViewHolder(RecyclerView.ViewHolder footerViewHolder, int position) {
+        public void onBindFooterItemViewHolder(RecyclerView.ViewHolder footerViewHolder, int position) {
 
         }
 
         @Override
-        protected void onBindContentItemViewHolder(RecyclerView.ViewHolder contentViewHolder, final int position) {
+        public void onBindContentItemViewHolder(RecyclerView.ViewHolder contentViewHolder, final int position) {
             if (contentViewHolder instanceof ItemHolder) {
                 ItemHolder vh = (ItemHolder) contentViewHolder;
                 Glide.with(mContext).load(mDatas.get(position)).into(vh.image);
                 vh.text.setText("￦ " + Utils.getSampleValue(position));
                 vh.image.setHeightRatio(1);
-            } else if (contentViewHolder instanceof HeaderHolder) {
-                HeaderHolder vh = (HeaderHolder) contentViewHolder;
+            } else if (contentViewHolder instanceof StickyHeaderHolder) {
+                StickyHeaderHolder vh = (StickyHeaderHolder) contentViewHolder;
                 vh.id = position;
-                vh.root.setBackgroundColor(Utils.getRandomColor(position));
-                vh.root.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(v.getContext(), "Header : " + position, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                vh.isStickty = true;
+//                vh.root.setBackgroundColor(Utils.getRandomColor(position));
+                if(position == 6 - 1) {
+                    vh.root.setBackgroundColor(Color.DKGRAY);
+                } else if(position == 12 - 1) {
+                    vh.root.setBackgroundColor(Color.GRAY);
+                } else if(position == 15 - 1) {
+                    vh.root.setBackgroundColor(Color.BLUE);
+                } else if(position == 20 - 1) {
+                    vh.root.setBackgroundColor(Color.BLACK);
+                }
                 vh.text.setText("Stickey View : " + position);
                 vh.text.setTextColor(Color.WHITE);
             }

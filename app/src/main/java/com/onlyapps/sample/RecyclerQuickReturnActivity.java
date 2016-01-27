@@ -29,13 +29,15 @@ public class RecyclerQuickReturnActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quick_return);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.quickreturn_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.quickreturn_coordinator);
         recyclerView = (RecyclerView) findViewById(R.id.quickreturn_list);
 
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<String> listData = new ArrayList<String>();
