@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,80 +58,6 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         mStickeyView = (LinearLayout) findViewById(R.id.sticky);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
-//        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            private int mLastedStickyViewIndex = -1;
-//            private List<Integer> mStickViewList = new ArrayList<Integer>();
-//
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                int position = mLayoutManager.findFirstVisibleItemPosition();
-//                if (position > 0) {
-//                    RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
-//                    if (isStickyHeader(holder)) {
-//                        if (isSticky()) {
-//                            removeStickView();
-//                        }
-//                        if (!isSticky()) {
-//                            addStickyView(recyclerView, position);
-//                        }
-//                    } else if (mLastedStickyViewIndex > position) {
-//                        if (isSticky()) {
-//                            removeStickView();
-//
-//                            int headerPostion = preStickHeaderPosition(position);
-//                            if (headerPostion > 0) {
-//                                if (!isSticky()) {
-//                                    addStickyView(recyclerView, headerPostion);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//            private boolean isStickyHeader(RecyclerView.ViewHolder holder) {
-//                return (holder instanceof StickyHeaderHolder);
-//            }
-//
-//            private boolean isSticky() {
-//                return mStickeyView.getChildCount() > 0;
-//            }
-//
-//            private void addStickyView(RecyclerView recyclerView, int position) {
-//                RecyclerView.ViewHolder holder = mAdapter.onCreateContentItemViewHolder(recyclerView, TYPE_STICKEY);
-//                mAdapter.onBindContentItemViewHolder(holder, position - mAdapter.getHeaderItemCount());
-//
-//                mStickeyView.addView(holder.itemView);
-//                mStickeyView.setVisibility(View.VISIBLE);
-//                mLastedStickyViewIndex = position;
-//
-//                if (!mStickViewList.contains(position)) {
-//                    mStickViewList.add(position);
-//                }
-//            }
-//
-//            private void removeStickView() {
-//                mStickeyView.removeAllViews();
-//                mStickeyView.setVisibility(View.GONE);
-//            }
-//
-//            private int preStickHeaderPosition(int position) {
-//                for (int i = mStickViewList.size() - 1; i >= 0; i--) {
-//                    int p = mStickViewList.get(i);
-//                    if (position >= p) {
-//                        return p;
-//                    }
-//                }
-//                return 0;
-//            }
-//        });
-
 
         mRecyclerView.addItemDecoration(new MarginDecoration(this));
         mAdapter = new MyHeaderRecycleViewAdapter(this);
@@ -145,8 +72,26 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);
 
-        // 간단하게 아래와 같이 처리
-        mRecyclerView.addOnScrollListener(new OnScrollStickyViewListener(mLayoutManager, mStickeyView));
+        // 간단하게 아래와 같이 스티키 스크롤 리스너를 만들어서 달아주도록 함
+        OnScrollStickyViewListener listener = new OnScrollStickyViewListener(mLayoutManager, mStickeyView);
+        listener.setStickyAddListener(new OnScrollStickyViewListener.StickyAddListener() {
+            @Override
+            public RecyclerView.ViewHolder addView(RecyclerView recyclerView, int position) {
+                RecyclerView.ViewHolder holder = null;
+                if (mAdapter != null) {
+                    holder = mAdapter.onCreateContentItemViewHolder(recyclerView, TYPE_STICKEY);
+                    mAdapter.onBindContentItemViewHolder(holder, position - mAdapter.getHeaderItemCount());
+                }
+                return holder;
+            }
+        });
+        listener.setStickyChangeListener(new OnScrollStickyViewListener.StickyChangeListener() {
+            @Override
+            public void onChange(int position, boolean isSticky) {
+                Log.d(TAG, "onChange() position : " + position + ", isSticky : " + isSticky);
+            }
+        });
+        mRecyclerView.addOnScrollListener(listener);
 
         findViewById(R.id.iv_title).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,10 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.onlyapps.sample.GridLayoutManagerActivity;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hyungsoklee on 2016. 1. 27..
@@ -19,6 +20,9 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
 
     private LinearLayoutManager mLayoutManager;
     private ViewGroup mStickyView;
+
+    private StickyChangeListener mStickyChangeListener;
+    private StickyAddListener mStickyAddListener;
 
     public OnScrollStickyViewListener(LinearLayoutManager manager, ViewGroup stickyView) {
         this.mLayoutManager = manager;
@@ -32,8 +36,23 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
     }
 
     private int mLastedStickyViewIndex = -1;
-    private List<Integer> mStickViewList = new ArrayList<Integer>();
+    private Map<Integer, Boolean> mStickViewMap = new HashMap<>();
 
+    public interface StickyChangeListener {
+        void onChange(int position, boolean isSticky);
+    }
+
+    public interface StickyAddListener {
+        RecyclerView.ViewHolder addView(RecyclerView recyclerView, int position);
+    }
+
+    public void setStickyChangeListener(StickyChangeListener listener) {
+        this.mStickyChangeListener = listener;
+    }
+
+    public void setStickyAddListener(StickyAddListener listener) {
+        this.mStickyAddListener = listener;
+    }
 
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -51,10 +70,12 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
                 Log.d(TAG, "onScrolled() : " + position + ", " + holder);
 
                 if (holder instanceof StickyHolder) {
-                    if (hasStickyView()) {
-                        removeStickView();
+                    if (isNewStickyView(position)) {
+                        if (hasStickyView()) {
+                            removeStickView();
+                        }
+                        addStickyView(recyclerView, position);
                     }
-                    addStickyView(recyclerView, position);
                 } else if (mLastedStickyViewIndex > position) {
                     if (hasStickyView()) {
                         removeStickView();
@@ -62,6 +83,10 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
                         int headerPostion = preStickHeaderPosition(position);
                         if (headerPostion > 0) {
                             addStickyView(recyclerView, headerPostion);
+                        } else {
+                            if (mStickyChangeListener != null) {
+                                mStickyChangeListener.onChange(position, false);
+                            }
                         }
                     }
                 }
@@ -70,20 +95,23 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
     }
 
     private void addStickyView(RecyclerView recyclerView, int position) {
-//        RecyclerView.ViewHolder holder = recyclerView.getAdapter().onCreateViewHolder(recyclerView, position);
-//        recyclerView.getAdapter().onBindViewHolder(holder, position);
-
-        GridLayoutManagerActivity.MyHeaderRecycleViewAdapter adapter = (GridLayoutManagerActivity.MyHeaderRecycleViewAdapter)recyclerView.getAdapter();
-        RecyclerView.ViewHolder holder = adapter.onCreateContentItemViewHolder(recyclerView, 1);
-        adapter.onBindContentItemViewHolder(holder, position - adapter.getHeaderItemCount());
+        RecyclerView.ViewHolder holder = null;
+        if (mStickyAddListener != null) {
+            holder = mStickyAddListener.addView(recyclerView, position);
+        } else {
+            holder = recyclerView.getAdapter().onCreateViewHolder(recyclerView, position);
+            recyclerView.getAdapter().onBindViewHolder(holder, position);
+        }
 
         mStickyView.addView(holder.itemView);
         mStickyView.setVisibility(View.VISIBLE);
 
-        if (!mStickViewList.contains(position)) {
-            mStickViewList.add(position);
-        }
+        mStickViewMap.put(position, true);
         mLastedStickyViewIndex = position;
+
+        if (mStickyChangeListener != null) {
+            mStickyChangeListener.onChange(position, true);
+        }
     }
 
     private boolean hasStickyView() {
@@ -93,14 +121,22 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
         return false;
     }
 
+    private boolean isNewStickyView(int position) {
+        return mStickViewMap.get(position) == null || !mStickViewMap.get(position).booleanValue();
+    }
+
     private void removeStickView() {
         mStickyView.removeAllViews();
         mStickyView.setVisibility(View.GONE);
+        mStickViewMap.put(mLastedStickyViewIndex, false);
     }
 
     private int preStickHeaderPosition(int position) {
-        for (int i = mStickViewList.size() - 1; i >= 0; i--) {
-            int p = mStickViewList.get(i);
+        List<Integer> list = new ArrayList<>(mStickViewMap.keySet());
+        Collections.sort(list);
+
+        for (int i = list.size() - 1; i >= 0; i--) {
+            int p = list.get(i);
             if (position >= p) {
                 return p;
             }
