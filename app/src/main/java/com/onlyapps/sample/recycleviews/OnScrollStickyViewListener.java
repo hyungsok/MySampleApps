@@ -82,10 +82,13 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
 
                         int headerPostion = preStickHeaderPosition(position);
                         if (headerPostion > 0) {
+                            if (mStickyChangeListener != null) {
+                                mStickyChangeListener.onChange(mLastedStickyViewIndex, false);
+                            }
                             addStickyView(recyclerView, headerPostion);
                         } else {
                             if (mStickyChangeListener != null) {
-                                mStickyChangeListener.onChange(position, false);
+                                mStickyChangeListener.onChange(mLastedStickyViewIndex, false);
                             }
                         }
                     }
