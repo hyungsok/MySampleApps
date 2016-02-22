@@ -43,7 +43,7 @@ public class StickyHeaderListViewActivity extends Activity {
             @Override
             public View getRowView(int section, int row, View convertView, ViewGroup parent) {
                 if (convertView == null) {
-                    convertView = (TextView) getLayoutInflater().inflate(getResources().getLayout(android.R.layout.simple_list_item_1), null);
+                    convertView = getLayoutInflater().inflate(getResources().getLayout(android.R.layout.simple_list_item_1), null);
                 }
                 ((TextView) convertView).setText("Section " + section + " Row " + row);
                 return convertView;
