@@ -73,7 +73,7 @@ public class GridLayoutManagerActivity extends Activity implements RecyclerItemC
         mRecyclerView.setAdapter(mAdapter);
 
         // 간단하게 아래와 같이 스티키 스크롤 리스너를 만들어서 달아주도록 함
-        OnScrollStickyViewListener listener = new OnScrollStickyViewListener(mLayoutManager, mStickeyView);
+        OnScrollStickyViewListener listener = new OnScrollStickyViewListener(mStickeyView);
         listener.setStickyChangeListener(new OnScrollStickyViewListener.StickyChangeListener() {
             @Override
             public void onChange(int position, boolean isSticky) {

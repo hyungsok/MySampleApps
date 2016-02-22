@@ -20,7 +20,6 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
     private static final String TAG = OnScrollStickyViewListener.class.getSimpleName();
 
     // [final/static_property]=====================[END]====================[final/static_property]
-    private LinearLayoutManager mLayoutManager;
     private ViewGroup mStickyView;
 
     private int mLastedStickyViewIndex = -1;
@@ -60,8 +59,7 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
 
     // [inherited/listener_method]=================[END]================[inherited/listener_method]
 
-    public OnScrollStickyViewListener(LinearLayoutManager manager, ViewGroup stickyView) {
-        this.mLayoutManager = manager;
+    public OnScrollStickyViewListener(ViewGroup stickyView) {
         this.mStickyView = stickyView;
     }
     // [life_cycle_method]========================[START]=======================[life_cycle_method]
@@ -74,23 +72,28 @@ public class OnScrollStickyViewListener extends RecyclerView.OnScrollListener {
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        if (mLayoutManager != null) {
-            int position = mLayoutManager.findFirstVisibleItemPosition();
 
-            if (position > 0) {
-                RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
-                Log.d(TAG, "onScrolled() : " + position + ", " + holder);
+        if (recyclerView != null) {
+            RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+            if (manager instanceof LinearLayoutManager) {
+                LinearLayoutManager linearLayoutManager = ((LinearLayoutManager) manager);
 
-                if (holder instanceof StickyViewHolder) {
-                    if (isNewStickyView(position)) {
-                        if (hasStickyView()) {
-                            removeStickView(recyclerView, false, position);
+                int position = linearLayoutManager.findFirstVisibleItemPosition();
+                if (position > 0) {
+                    RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
+                    Log.d(TAG, "onScrolled() : " + position + ", " + holder);
+
+                    if (holder instanceof StickyViewHolder) {
+                        if (isNewStickyView(position)) {
+                            if (hasStickyView()) {
+                                removeStickView(recyclerView, false, position);
+                            }
+                            addStickyView(recyclerView, position);
                         }
-                        addStickyView(recyclerView, position);
-                    }
-                } else if (mLastedStickyViewIndex > position) {
-                    if (hasStickyView()) {
-                        removeStickView(recyclerView, true, position);
+                    } else if (mLastedStickyViewIndex > position) {
+                        if (hasStickyView()) {
+                            removeStickView(recyclerView, true, position);
+                        }
                     }
                 }
             }
