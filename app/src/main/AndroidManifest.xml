@@ -69,6 +69,8 @@
 
         <activity android:name=".RecycleStickyListViewActivity" />
 
+        <activity android:name=".StickyHeaderListViewActivity" />
+
         <!-- Broadcast receiver -->
         <receiver android:name=".appwidget.AlarmManagerBroadcastReceiver" />
 
@@ -93,6 +95,11 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="19cd210c4a1685b81e7fca454acaa7dbafa90408" />
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         >
     </application>
