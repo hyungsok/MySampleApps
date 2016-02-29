@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.onlyapps.sample.listviewremovalanimation.ListViewRemovalAnimation;
 import com.onlyapps.sample.utils.GoogleAnalyticsManager;
+import com.onlyapps.sample.utils.OnlyApps;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -45,6 +46,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setSelection(adapter.getCount() - 1);
+
+        OnlyApps.testContentUris();
     }
 
     @Override
