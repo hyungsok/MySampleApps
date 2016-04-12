@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         adapter.add("16. RecyclerQuickReturn(DesignLibrary-v23)");
         adapter.add("17. RecyclerStickyListView");
         adapter.add("18. StickyHeaderListViewActivity");
+        adapter.add("18. IntroActivity(KenBurn)");
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setSelection(adapter.getCount() - 1);
@@ -117,6 +118,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 18:
                 startActivity(new Intent(this, StickyHeaderListViewActivity.class));
+                break;
+            case 19:
+                startActivity(new Intent(this, IntroActivity.class));
                 break;
         }
     }

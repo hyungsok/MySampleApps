@@ -148,4 +148,6 @@
         <item>Google style product tour</item>
 
     </string-array>
+    <string name="com.optimizely.api_key" translatable="false">AANM_gIBSCNMOpXGpz6r-BDqXv4oNXnE~5164650804</string>
+    <string name="title_activity_intro">KenBurn</string>
 </resources>

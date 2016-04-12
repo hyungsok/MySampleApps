@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.onlyapps.sample"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -12,24 +12,24 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    -->
+    <!--     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,14 +61,11 @@
         <activity
             android:name=".ZoomScrollViewCustomActivity"
             android:theme="@style/DesignTheme" />
-        <activity android:name=".AnnotationTestActivity"/>
-
+        <activity android:name=".AnnotationTestActivity" />
         <activity
-            android:theme="@style/Base.MyTheme"
-            android:name=".RecyclerQuickReturnActivity" />
-
+            android:name=".RecyclerQuickReturnActivity"
+            android:theme="@style/Base.MyTheme" />
         <activity android:name=".RecycleStickyListViewActivity" />
-
         <activity android:name=".StickyHeaderListViewActivity" />
 
         <!-- Broadcast receiver -->
@@ -82,7 +79,7 @@
         <receiver
             android:name=".appwidget.TimeWidgetProvider"
             android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -95,13 +92,17 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="19cd210c4a1685b81e7fca454acaa7dbafa90408" />
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         >
+        <activity
+            android:name=".IntroActivity"
+            android:label="@string/title_activity_intro"></activity>
     </application>
 
 </manifest>
